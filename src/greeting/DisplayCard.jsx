@@ -1,5 +1,5 @@
-﻿function DisplayCard({name}){
-    
+﻿
+function DisplayCard({name}){
     return (
         <div>
             <p>{name}</p>
