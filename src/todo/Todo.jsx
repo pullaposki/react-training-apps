@@ -10,26 +10,33 @@ function Todo(){
         newTasks.push({task_name: newTaskName});
         
         setTasks(newTasks);
+        setNewTaskName("")
     }
 
-    const completeTask = function (id){
-        console.log(`Should remove item with id ${id} from list`)
-    }
+    const completeTask = function (taskName) {
+        const filteredTasks = tasks.filter(function (task) {
+            return task.task_name !== taskName;
+        });
+
+        setTasks(filteredTasks);
+    }    
     
     const renderTasks = function () {
         return(
             <ul>
-                {mapTaskNamesToListElements()}
+                {mapTaskNamesToListElements()}                
             </ul>
         )
     }
-    
+
     const mapTaskNamesToListElements = function(){
         return tasks.map(function (task){            
-            return <li key={task.task_name}>{task.task_name}</li>
+            return <li key={task.task_name}>{task.task_name}
+                <button onClick={() => completeTask(task.task_name)}>complete task</button>
+            </li>
         })
     }
-    
+
     const [newTaskName, setNewTaskName] = useState("new task");
     
     const handleInputChange = function (e) {
@@ -40,11 +47,11 @@ function Todo(){
 
 return(
         <div>
-            <h1>todo</h1>
+            <h2>Todo</h2>
             <input onChange={()=>handleInputChange(event)}/> 
-            <button onClick={()=>addTask("testname", "testdesc", new Date())}>add task</button>
+            <button onClick={()=>addTask()}>add task</button>
             {renderTasks()}
-            <button onClick={()=>completeTask(id)}>complete task</button>
+            
             
         </div>
     );
